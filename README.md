@@ -7,7 +7,7 @@ A powerful **React Native** app built using **Expo** that supports **text transl
 - Simple and user-friendly interface.
 - Language selection with flags for better usability.
 - Built with React Native and Expo, ensuring cross-platform compatibility (**iOS & Android**).
-- **Future Enhancement**: Text-to-speech functionality to read translations aloud.
+- **Future Enhancement**: Text-to-speech functionality to read translations aloud ✅.
 
 ---
 
