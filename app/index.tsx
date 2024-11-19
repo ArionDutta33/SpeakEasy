@@ -1,5 +1,6 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
+import * as Speech from 'expo-speech';
 import React, { useRef, useState } from 'react';
 import {
   View,
@@ -22,6 +23,14 @@ const Home = () => {
   const [toTextInput, setToTextInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  const speak = async (text: string) => {
+    if (!text.trim()) {
+      alert('No text to speak!');
+      return;
+    }
+    Speech.speak(text);
+  };
+
   const handleSubmit = async () => {
     if (!fromTextInput || !toLanguage || !fromLanguage || !toLanguage) return;
     setLoading(true);
@@ -32,7 +41,10 @@ const Home = () => {
       const data = await response.json();
       setLoading(false);
       console.log(JSON.stringify(data, null, 2));
-      setToTextInput(data.matches[0].translation);
+      const bestMatch = data.matches.reduce((best, current) => {
+        return current.match > best.match ? current : best;
+      });
+      setToTextInput(bestMatch.translation);
       console.log('hit');
       console.log(data.matches[0].translation);
     } catch (error) {
@@ -162,7 +174,12 @@ const Home = () => {
                 </Text>
                 <View className="flex-row gap-3">
                   <Feather name="copy" size={22} color="gray" />
-                  <AntDesign name="sound" size={22} color="gray" />
+                  <AntDesign
+                    onPress={() => speak(toTextInput)}
+                    name="sound"
+                    size={22}
+                    color="gray"
+                  />
                 </View>
               </View>
             </View>
