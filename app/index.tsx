@@ -1,8 +1,10 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
-const index = () => {
+const Home = () => {
+  const [fromText, setFromText] = useState<string>('');
+  const [toText, setToText] = useState<string>('');
   return (
     <>
       <Stack.Screen
@@ -35,8 +37,11 @@ const index = () => {
         {/* from text box */}
         <View className="mt-4 h-72 justify-between rounded-3xl border border-gray-300  p-4">
           <TextInput
+            value={fromText}
+            onChangeText={setFromText}
             placeholder="Enter the text here"
             multiline
+            className="flex-1 "
             textAlignVertical="top"
             numberOfLines={5}
           />
@@ -55,8 +60,11 @@ const index = () => {
         </View>
         <View className="mt-4 h-72 justify-between rounded-3xl border border-gray-300  p-4">
           <TextInput
+            value={toText}
+            onChangeText={setToText}
             placeholder="Enter the text here"
             multiline
+            className="flex-1"
             textAlignVertical="top"
             numberOfLines={5}
           />
@@ -78,5 +86,5 @@ const index = () => {
   );
 };
 
-export default index;
+export default Home;
 // className = 'h-48 rounded-3xl border border-gray-300  p-4';
