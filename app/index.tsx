@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import React from 'react';
 import { View, Text, TextInput } from 'react-native';
@@ -33,12 +33,25 @@ const index = () => {
           </View>
         </View>
         {/* from text box */}
-        <View>
+        <View className="h-72 justify-between rounded-3xl border border-gray-300  p-4">
           <TextInput
             placeholder="Enter the text here"
             multiline
-            className="h-24 border border-gray-300 p-2"
+            textAlignVertical="top"
+            numberOfLines={5}
           />
+          <View className="gap-4  ">
+            <View className="border border-gray-300" />
+            <View className="flex-row justify-between   px-2">
+              <Text>
+                <Text className="font-bold text-black">150</Text>/5,000
+              </Text>
+              <View className="flex-row gap-3">
+                <Feather name="copy" size={22} color="gray" />
+                <AntDesign name="sound" size={22} color="gray" />
+              </View>
+            </View>
+          </View>
         </View>
       </View>
     </>
@@ -46,5 +59,4 @@ const index = () => {
 };
 
 export default index;
-{
-}
+// className = 'h-48 rounded-3xl border border-gray-300  p-4';
