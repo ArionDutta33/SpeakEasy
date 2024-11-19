@@ -1,10 +1,21 @@
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
-import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { Dropdown, SelectCountry } from 'react-native-element-dropdown';
+
+import { data } from '~/data';
+
 const Home = () => {
-  const [fromText, setFromText] = useState<string>('');
-  const [toText, setToText] = useState<string>('');
+  const [fromLanguage, setFromLanguage] = useState<string>('English');
+  const [toLanguage, setToLanguage] = useState<string>('English');
+  const [fromTextInput, setFromTextInput] = useState<string>('');
+  const [toTextInput, setToTextInput] = useState<string>('');
+
+  const handleSubmit = () => {
+    console.log(fromLanguage, toLanguage, fromTextInput);
+  };
+
   return (
     <>
       <Stack.Screen
@@ -19,26 +30,69 @@ const Home = () => {
       <View className="flex-1 border-yellow-600 bg-white px-4">
         {/* outer */}
         <View className=" flex-row items-center justify-center    ">
-          <View className="flex-1 flex-row items-center  justify-center gap-4 rounded-full border border-gray-300 px-6  py-2 ">
-            <Text className="text-3xl">🇬🇧</Text>
-            <Text className="text-lg font-bold">UK</Text>
-          </View>
+          <SelectCountry
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'gray',
+              borderWidth: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: 150,
+              justifyContent: 'center',
+              borderRadius: 40,
+              padding: 12,
+            }}
+            search
+            maxHeight={200}
+            value={fromLanguage}
+            data={data}
+            valueField="code"
+            labelField="language"
+            flagField="flag"
+            placeholder="From"
+            searchPlaceholder="Search..."
+            onChange={(e) => {
+              console.log(e.code);
+              setFromLanguage(e.code);
+            }}
+          />
           <Ionicons
             className="mx-4 rounded-full border bg-black p-2"
             name="swap-horizontal"
             size={24}
             color="white"
           />
-          <View className="flex-1 flex-row items-center  justify-center gap-4 rounded-full border border-gray-300 px-6  py-2 ">
-            <Text className="text-3xl">🇬🇧</Text>
-            <Text className="text-lg font-bold">UK</Text>
-          </View>
+          <SelectCountry
+            style={{
+              backgroundColor: 'white',
+              borderColor: 'gray',
+              borderWidth: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: 150,
+              justifyContent: 'center',
+              borderRadius: 40,
+              padding: 12,
+            }}
+            search
+            maxHeight={200}
+            value={toLanguage}
+            data={data}
+            valueField="code"
+            labelField="language"
+            flagField="flag"
+            placeholder="To"
+            searchPlaceholder="Search..."
+            onChange={(e) => {
+              setToLanguage(e.code);
+            }}
+          />
         </View>
         {/* from text box */}
         <View className="mt-4 h-72 justify-between rounded-3xl border border-gray-300  p-4">
           <TextInput
-            value={fromText}
-            onChangeText={setFromText}
+            value={fromTextInput}
+            onChangeText={setFromTextInput}
             placeholder="Enter the text here"
             multiline
             className="flex-1 "
@@ -60,8 +114,8 @@ const Home = () => {
         </View>
         <View className="mt-4 h-72 justify-between rounded-3xl border border-gray-300  p-4">
           <TextInput
-            value={toText}
-            onChangeText={setToText}
+            value={toTextInput}
+            onChangeText={setToTextInput}
             placeholder="Enter the text here"
             multiline
             className="flex-1"
@@ -81,6 +135,9 @@ const Home = () => {
             </View>
           </View>
         </View>
+        <Pressable onPress={handleSubmit}>
+          <Text>Translate</Text>
+        </Pressable>
       </View>
     </>
   );
@@ -88,3 +145,14 @@ const Home = () => {
 
 export default Home;
 // className = 'h-48 rounded-3xl border border-gray-300  p-4';
+// style={{
+//             backgroundColor: 'white',
+//             borderColor: 'gray',
+//             borderWidth: 1,
+//             flexDirection: 'row',
+//             alignItems: 'center',
+//             width: 150,
+//             justifyContent: 'center',
+//             borderRadius: 40,
+//             padding: 12,
+//           }}
